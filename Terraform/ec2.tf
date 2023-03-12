@@ -1,7 +1,7 @@
 resource "aws_instance" "prometheus_instance" {
   ami           = var.ami_id
   instance_type = "t2.micro"
-  key_name      = var.key_name
+  key_name      = var.deployer
 
   tags = {
     Name = "prometheus-instance"
@@ -15,20 +15,20 @@ resource "aws_instance" "prometheus_instance" {
       "sudo systemctl enable prometheus"
     ]
 
-    connection {
+    /* connection {
       type        = "ssh"
       user        = "ubuntu"
       private_key = file(var.private_key_path)
       host        = self.public_ip
-    }
+    } */
   }
 
-  connection {
+  /* connection {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file(var.private_key_path)
     host        = self.public_ip
-  }
+  } */
 }
 
 resource "aws_ami" "prometheus_ami" {
